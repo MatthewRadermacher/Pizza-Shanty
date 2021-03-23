@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pizza Shanty</title>
+<style>
+  body {
+    background-color: ivory;
+	text-align: center;
+	background-image: url("https://www.freeiconspng.com/uploads/pizza-png-4.png");
+	background-size: 447px 319px;
+    background-repeat: repeat;
+  }
+  header {
+    background-color: salmon;
+	margin-bottom: 10px;
+	border: 5px solid black;
+  }
+  header h1{
+	font-size: 4em;
+	font-family: "Garamond", sans-serif;
+	font-weight: bold;
+  }
+  header h2 {
+	font-size: 1.5em;
+	font-family: "Times New Roman", Times, serif;
+  }
+  .divMain {
+	background-color: salmon;
+	margin: auto;
+	margin-top: 20px;
+	width: 30%;
+	border: 4px solid black;
+  }
+  .divTable {
+    display: table;
+  }
+  .divTableRow {
+    display: table-row;
+  }
+  .divTableCell {
+    border: 1px solid black;
+    display: table-cell;
+    padding: 5px 10px;
+	text-align: center;
+  }
+  .divTableBody {
+    display: table-row-group;
+  }
+  .divAddress {
+	border: 1px solid black;
+  }
+  #streetAddress {
+	width: 70%;
+  }
+  .tableText {
+    text-align: center;
+	width: 100%;
+  }
+  .tableButton {
+    text-align: center;
+	width: 100%;
+  }
+  
+</style>
+<script>
+  //Price variables
+  var totalPrice = 0.00;
+  var toppingsPrice = 0.00;
+  var crustSizePrice = 10.00;
+  var typePrice = 0.00;
+  var extra = 0.00;
+  
+  //Button functions
+  function addTopping() {
+	toppingsPrice += 1.5;
+	setTotal();
+  }
+  function removeTopping() {
+	if (toppingsPrice > 0) toppingsPrice -= 1.5;
+	setTotal();
+  }
+  function setCrustSize(size, amount) {
+    document.getElementById("crustSize").value = size;
+	crustSizePrice = amount;
+	setTotal();
+  }
+  function setType(type, amount) {
+    document.getElementById("crustType").value = type;
+	typePrice = amount;
+	setTotal();
+  }
+  function setExtra() {
+    document.getElementById("extraCheese").value = "Extra";
+	extra = 1.40;
+	setTotal();
+  }
+  function setTotal() {
+    totalPrice = toppingsPrice + crustSizePrice + typePrice + extra + 0.088;
+	document.getElementById("total").value = totalPrice.toFixed(2);
+  }
+  function clearAll() {
+	document.getElementById("crustSize").value = "S";
+	document.getElementById("crustType").value = "Thin";
+	document.getElementById("extraCheese").value = "";
+	document.getElementById("streetAddress").value = "";
+	totalPrice = 0.00;
+    toppingsPrice = 0.00;
+    crustSizePrice = 10.00;
+    typePrice = 0.00;
+    extra = 0.00;
+	document.getElementById("pepperoni").checked = false;
+	document.getElementById("hamburger").checked = false;
+	document.getElementById("onion").checked = false;
+	document.getElementById("mushroom").checked = false;
+	document.getElementById("turkey").checked = false;
+	setTotal();
+  }
+  
+  //Onload, add Event Listeners for button funtionality
+  window.onload=function(){
+    document.getElementById("pepperoni").addEventListener("change", function() {
+		  if(this.checked) {
+			addTopping();
+		} else {
+			removeTopping();
+		}
+    }, false);
+    document.getElementById("hamburger").addEventListener("change", function() {
+        if(this.checked) {
+			addTopping();
+		} else {
+			removeTopping();
+		}
+    }, false);
+    document.getElementById("onion").addEventListener("change", function() {
+        if(this.checked) {
+			addTopping();
+		} else {
+			removeTopping();
+		}
+    }, false);
+    document.getElementById("mushroom").addEventListener("change", function() {
+        if(this.checked) {
+			addTopping();
+		} else {
+			removeTopping();
+		}
+    }, false);
+	document.getElementById("turkey").addEventListener("change", function() {
+        if(this.checked) {
+			addTopping();
+		} else {
+			removeTopping();
+		}
+    }, false);
+	document.getElementById("smallCrust").addEventListener("click", function() {
+      setCrustSize("Small", 10.00);
+    }, false);
+    document.getElementById("mediumCrust").addEventListener("click", function() {
+      setCrustSize("Medium", 12.00);
+    }, false);
+    document.getElementById("largeCrust").addEventListener("click", function() {
+      setCrustSize("Large", 14.00);
+    }, false);
+    document.getElementById("giantCrust").addEventListener("click", function() {
+      setCrustSize("Giant", 18.00);
+    }, false);
+	document.getElementById("thin").addEventListener("click", function() {
+      setType("Thin", 0.00);
+    }, false);
+	document.getElementById("pan").addEventListener("click", function() {
+      setType("Pan", 0.00);
+    }, false);
+	document.getElementById("stuffed").addEventListener("click", function() {
+      setType("Stuffed", 1.00);
+    }, false);
+	document.getElementById("square").addEventListener("click", function() {
+      setType("Square", 0.50);
+    }, false);
+	document.getElementById("addExtra").addEventListener("click", function() {
+      setExtra();
+    }, false);
+	document.getElementById("clear").addEventListener("click", function() {
+      clearAll();
+    }, false);
+	setTotal();
+  }
+</script>
+</head>
+<body>
+<header>
+  <h1>
+    Pizza Shanty
+  </h1>
+  <h2>
+    everybody loves a pizza
+  </h2>
+</header>
+<form method="post" action="/node90/pizza_shanty_save">
+<!-- Table made of divs for easy styling -->
+<div class="divMain">
+<div class="divTable">
+  <div class="divTableBody">
+	<!-- Headings for all the pizza variables -->
+    <div class="divTableRow">
+      <div class="divTableCell">Crust Size</div>
+      <div class="divTableCell">Crust Type</div>
+      <div class="divTableCell">Extra Cheese</div>
+	  <div class="divTableCell">Toppings</div>
+    </div>
+	<div class="divTableRow">
+      <div class="divTableCell"><input type="text" class="tableText" id="crustSize" name="crust_size" value="Small" readonly></div>
+      <div class="divTableCell"><input type="text" class="tableText" id="crustType" name="crust_type" value="Thin" readonly></div>
+      <div class="divTableCell"><input type="text" class="tableText" id="extraCheese" name="extra_cheese" readonly></div>
+	  <div class="divTableCell"><label for="pepperoni">Pepperoni</label><input type="checkbox" name="Pepperoni" id="pepperoni" value="Pepperoni"></div>
+    </div>
+    <div class="divTableRow">
+      <div class="divTableCell"><input type="button" class="tableButton" id="smallCrust" value="Small"></div>
+      <div class="divTableCell"><input type="button" class="tableButton" id="thin" value="Thin"></div>
+      <div class="divTableCell"><input type="button" class="tableButton" id="addExtra" value="Extra"></div>
+	  <div class="divTableCell"><label for="hamburger">Hamburger</label><input type="checkbox" name="Hamburger" id="hamburger" value="Hamburger"></div>
+    </div>
+    <div class="divTableRow">
+      <div class="divTableCell"><input type="button" class="tableButton" id="mediumCrust" value="Medium"></div>
+      <div class="divTableCell"><input type="button" class="tableButton" id="pan" value="Pan"></div>
+      <div class="divTableCell"><input type="button" class="tableButton" id="clear" value="Clear"></div>
+	  <div class="divTableCell"><label for="onion">Onion</label><input type="checkbox" name="Onion" id="onion" value="Onion"></div>
+    </div>
+    <div class="divTableRow">
+      <div class="divTableCell"><input type="button" class="tableButton" id="largeCrust" value="Large"></div>
+      <div class="divTableCell"><input type="button" class="tableButton" id="stuffed" value="Stuffed"></div>
+      <div class="divTableCell">Total: </div>
+	  <div class="divTableCell"><label for="mushroom">Mushroom</label><input type="checkbox" name="Mushroom" id="mushroom" value="Mushroom"></div>
+    </div>
+	<div class="divTableRow">
+      <div class="divTableCell"><input type="button" class="tableButton" id="giantCrust" value="Giant"></div>
+      <div class="divTableCell"><input type="button" class="tableButton" id="square" value="Square"></div>
+      <div class="divTableCell"><input type="text" class="tableText" id="total" name="total_price" value="0.00" readonly></div>
+	  <div class="divTableCell"><label for="turkey">Turkey</label><input type="checkbox" name="Turkey" id="turkey" value="Turkey"></div>
+    </div>
+  </div>
+</div>
+<div class="divTableCell">
+	<label for="streetAddress">Address:</label>
+	<input type="text" id="streetAddress" name="streetAddress" required>
+</div>
+<div class="divTableCell">
+	<input type="submit" class="tableButton" id="placeOrder" value="Place Order">
+</div>
+</div>
+</form>
+</body>
+</html>
